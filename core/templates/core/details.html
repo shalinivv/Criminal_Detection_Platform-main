@@ -1,0 +1,137 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block content %}
+
+
+{% comment %} some classes have reference from bootstrap  {% endcomment %}
+{% comment %} some classes are mentioned in details.css file in static folder {% endcomment %}
+{% comment %} this part is shown if there is no previously uploaded profile in the database{% endcomment %}
+{% if profile == None %}
+<div class="container emp-profile">
+
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-5">
+                <p><b>NOTE: </b>
+                    <li>Kindly wait !! Browser is opening camera. It might take some time.</li>
+                (This screen will disappear after running the first scan)
+                </p>
+        </div>
+    </div>
+</div>
+
+{% comment %} this part shows details of the criminal if he/she is found in the records{% endcomment %}
+{% else %}
+<div class="container emp-profile">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="{{ profile.image.url }}" alt="" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h3>CRIMINAL IDENTIFIED!!!</h3> 
+                    <br>
+                    <h4>
+                        {{profile.first_name}} {{profile.last_name}}
+                    </h4><br>
+                    <h5><u> About<u></h5>
+                  
+                </div>
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Profile Id</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{profile.id}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{profile.first_name}} {{profile.last_name}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Age</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{profile.age}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Gender</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{profile.gender}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Identification</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ profile.identi }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Crimes</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{ profile.crime }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Nationality</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{profile.nationality}}</p>
+                            </div>
+                        </div>
+                    </div>
+                <a href="{% url 'home' %}"><input type="button" class="profile-edit-btn" name="btnAddMore" value="Back" /></a>
+                    
+                </div>
+            </div>
+            <div class="col-md-2">
+                <a href="{% url 'edit_profile' profile.id %}"><input type="button" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" /></a>
+            <br>
+            <br>
+                <a href="{% url 'home' %}"><input type="button" class="profile-edit-btn" class="btn btn-outline-secondary" class="btn btn-outline-danger ml-1" name="btnAddMore" value="Back" /></a>
+            </div>
+            </div>
+        </div>
+</div>
+{% endif %}
+
+
+<p id="last_face" class="d-none">{{last_face}}</p>
+
+{% comment %} js connection {% endcomment %}
+<script>
+    setInterval(function () {
+        var url = 'http://127.0.0.1:8000/ajax/';
+        var last_face = document.getElementById('last_face').innerHTML;
+        $.ajax({
+            url: url,
+            success: function (data) {
+                if (data != last_face) {
+                    location.reload()
+                }
+            }
+        })
+    }, 3000);
+
+</script>
+
+{% endblock content %}
