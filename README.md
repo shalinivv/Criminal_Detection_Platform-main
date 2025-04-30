@@ -38,25 +38,7 @@ Check Python Version Type in cmd
 ```python
 python --version
 ```
-And then
 
-For Python 3.7..
-```python
-pip install https://github.com/Murtaza-Saeed/dlib/raw/master/dlib-19.19.0-cp37-cp37m-win_amd64.whl
-```
-
-For Python 3.8..
-```python
-pip install https://github.com/Murtaza-Saeed/dlib/raw/master/dlib-19.19.0-cp38-cp38-win_amd64.whl
-```
-For Python 3.9..
-```python
-pip install https://github.com/Murtaza-Saeed/dlib/raw/master/dlib-19.22.1-cp39-cp39-win_amd64.whl
-```
-For Python 3.10..
-```python
-pip install https://github.com/Murtaza-Saeed/dlib/raw/master/dlib-19.22.99-cp310-cp310-win_amd64.whl
-```
 Requirement 5: 
 ```python
 pip install face_recognition
